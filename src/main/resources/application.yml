@@ -1,1 +1,5 @@
-
+mqtt:
+  brokerUrl: ${BROKER_URL:tcp://localhost:1883}
+  clientId: ${CLIENT_ID:calibre}
+  inputTopic: ${INPUT_TOPIC:input}
+  outputTopic: ${OUTPUT_TOPIC:output}
