@@ -32,3 +32,5 @@ out/
 
 ### VS Code ###
 .vscode/
+
+/calibre-tcplocalhost1883/.lck
