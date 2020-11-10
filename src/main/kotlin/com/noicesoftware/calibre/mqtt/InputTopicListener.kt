@@ -2,6 +2,7 @@ package com.noicesoftware.calibre.mqtt
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.noicesoftware.calibre.config.MqttConfig
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener
 import org.eclipse.paho.client.mqttv3.MqttClient
 import org.eclipse.paho.client.mqttv3.MqttMessage
@@ -12,11 +13,12 @@ import org.springframework.stereotype.Component
 
 
 @Component
-class CalibrationService(
+class InputTopicListener(
         val mqttConfig: MqttConfig,
         val mqttClient: MqttClient,
         val objectMapper: ObjectMapper,
-        val logger: Logger) : IMqttMessageListener {
+        val logger: Logger
+) : IMqttMessageListener {
 
     @EventListener(ApplicationReadyEvent::class)
     fun onReady(event: ApplicationReadyEvent) = mqttClient.subscribe(mqttConfig.inputTopic, this)

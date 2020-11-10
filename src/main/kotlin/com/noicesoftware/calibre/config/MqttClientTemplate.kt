@@ -1,4 +1,4 @@
-package com.noicesoftware.calibre.mqtt
+package com.noicesoftware.calibre.config
 
 
 import org.eclipse.paho.client.mqttv3.MqttClient

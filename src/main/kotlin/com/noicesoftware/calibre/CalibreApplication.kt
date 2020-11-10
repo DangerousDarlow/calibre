@@ -1,6 +1,6 @@
 package com.noicesoftware.calibre
 
-import com.noicesoftware.calibre.mqtt.MqttConfig
+import com.noicesoftware.calibre.config.MqttConfig
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication

@@ -1,4 +1,4 @@
-package com.noicesoftware.calibre.mqtt
+package com.noicesoftware.calibre.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
