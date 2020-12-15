@@ -12,15 +12,14 @@ import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 
-
 @Component
 class InputTopicListener(
-        val mqttConfig: MqttConfig,
-        val mqttClient: MqttClient,
-        val objectMapper: ObjectMapper,
-        val calibrator: MeasurementCalibrator,
-        val publisher: InfluxLineProtocolPublisher,
-        val logger: Logger
+    val mqttConfig: MqttConfig,
+    val mqttClient: MqttClient,
+    val objectMapper: ObjectMapper,
+    val calibrator: MeasurementCalibrator,
+    val publisher: OutputTopicPublisher,
+    val logger: Logger
 ) : IMqttMessageListener {
 
     @EventListener(ApplicationReadyEvent::class)

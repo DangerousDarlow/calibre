@@ -11,5 +11,6 @@ import org.springframework.context.annotation.Scope
 class LoggingConfig {
     @Bean
     @Scope("prototype")
-    fun logger(injectionPoint: InjectionPoint): Logger = LoggerFactory.getLogger(injectionPoint.methodParameter?.containingClass)
+    fun logger(injectionPoint: InjectionPoint): Logger =
+        LoggerFactory.getLogger(injectionPoint.methodParameter?.containingClass)
 }
