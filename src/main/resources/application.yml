@@ -3,3 +3,14 @@ mqtt:
   clientId: ${CLIENT_ID:calibre}
   inputTopic: ${INPUT_TOPIC:input}
   outputTopic: ${OUTPUT_TOPIC:output}
+
+influx:
+  mappings:
+    - path: environment/temperature+humidity
+      fields: [temperature, humidity]
+
+    - path: environment/light
+      fields: light
+
+    - path: device/battery
+      fields: voltage

@@ -3,6 +3,7 @@ package com.noicesoftware.calibre.mqtt
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.noicesoftware.calibre.config.MqttConfig
+import com.noicesoftware.calibre.model.Measurements
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener
 import org.eclipse.paho.client.mqttv3.MqttClient
 import org.eclipse.paho.client.mqttv3.MqttMessage
@@ -17,6 +18,8 @@ class InputTopicListener(
         val mqttConfig: MqttConfig,
         val mqttClient: MqttClient,
         val objectMapper: ObjectMapper,
+        val calibrator: MeasurementCalibrator,
+        val publisher: InfluxLineProtocolPublisher,
         val logger: Logger
 ) : IMqttMessageListener {
 
@@ -29,7 +32,9 @@ class InputTopicListener(
 
         try {
             val json = String(message.payload, Charsets.UTF_8)
-            val measurements: SensorMeasurements = objectMapper.readValue(json)
+            val uncalibrated: Measurements = objectMapper.readValue(json)
+            val calibrated = calibrator.calibrate(uncalibrated)
+            publisher.publish(calibrated)
         } catch (e: Exception) {
             logger.error("Failed to process sensor measurements: ${e.stackTraceToString()}")
         }

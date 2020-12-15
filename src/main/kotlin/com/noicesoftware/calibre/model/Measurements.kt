@@ -1,6 +1,6 @@
-package com.noicesoftware.calibre.mqtt
+package com.noicesoftware.calibre.model
 
-data class SensorMeasurements(
+data class Measurements(
         val sensor: String,
         val measurements: Map<String, String>
 )
