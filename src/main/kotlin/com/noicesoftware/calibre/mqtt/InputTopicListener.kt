@@ -2,8 +2,9 @@ package com.noicesoftware.calibre.mqtt
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.noicesoftware.calibre.calibration.MeasurementCalibrator
 import com.noicesoftware.calibre.config.MqttConfig
-import com.noicesoftware.calibre.model.Measurements
+import com.noicesoftware.calibre.calibration.Measurements
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener
 import org.eclipse.paho.client.mqttv3.MqttClient
 import org.eclipse.paho.client.mqttv3.MqttMessage

@@ -3,7 +3,7 @@ package com.noicesoftware.calibre.mqtt
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.noicesoftware.calibre.config.FieldToPathConfig
 import com.noicesoftware.calibre.config.MqttConfig
-import com.noicesoftware.calibre.model.Measurements
+import com.noicesoftware.calibre.calibration.Measurements
 import org.eclipse.paho.client.mqttv3.MqttClient
 import org.springframework.stereotype.Component
 
