@@ -1,5 +1,7 @@
 package com.noicesoftware.calibre.calibration
 
+import java.math.BigDecimal
+
 interface IEquation {
-    fun calculate(value: Double): Double
+    fun calculate(value: BigDecimal): BigDecimal
 }

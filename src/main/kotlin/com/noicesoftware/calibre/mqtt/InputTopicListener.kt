@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.noicesoftware.calibre.calibration.MeasurementCalibrator
 import com.noicesoftware.calibre.config.MqttConfig
-import com.noicesoftware.calibre.calibration.Measurements
+import com.noicesoftware.calibre.calibration.DeviceMeasurements
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener
 import org.eclipse.paho.client.mqttv3.MqttClient
 import org.eclipse.paho.client.mqttv3.MqttMessage
@@ -32,7 +32,7 @@ class InputTopicListener(
 
         try {
             val json = String(message.payload, Charsets.UTF_8)
-            val uncalibrated: Measurements = objectMapper.readValue(json)
+            val uncalibrated: DeviceMeasurements = objectMapper.readValue(json)
             val calibrated = calibrator.calibrate(uncalibrated)
             publisher.publish(calibrated)
         } catch (e: Exception) {

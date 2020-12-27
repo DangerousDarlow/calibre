@@ -3,7 +3,7 @@ package com.noicesoftware.calibre.mqtt
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.noicesoftware.calibre.config.FieldToPathConfig
 import com.noicesoftware.calibre.config.MqttConfig
-import com.noicesoftware.calibre.calibration.Measurements
+import com.noicesoftware.calibre.calibration.DeviceMeasurements
 import org.eclipse.paho.client.mqttv3.MqttClient
 import org.springframework.stereotype.Component
 
@@ -14,8 +14,8 @@ class OutputTopicPublisher(
     val mqttClient: MqttClient,
     val objectMapper: ObjectMapper
 ) {
-    fun publish(measurements: Measurements) {
-        val str = objectMapper.writeValueAsString(measurements)
+    fun publish(deviceMeasurements: DeviceMeasurements) {
+        val str = objectMapper.writeValueAsString(deviceMeasurements)
         mqttClient.publish(mqttConfig.outputTopic, str.toByteArray(), 0, false)
     }
 }
