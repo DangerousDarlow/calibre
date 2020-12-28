@@ -1,4 +1,4 @@
-package com.noicesoftware.calibre.calibration
+package com.noicesoftware.calibre.calibration.equations
 
 import java.math.BigDecimal
 

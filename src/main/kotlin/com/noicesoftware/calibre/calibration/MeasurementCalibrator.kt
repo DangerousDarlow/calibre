@@ -8,7 +8,7 @@ class MeasurementCalibrator(
     val calibrationProvider: DeviceCalibrationProvider
 ) {
     fun calibrate(deviceMeasurements: DeviceMeasurements): DeviceMeasurements {
-        val calibration = calibrationProvider.forDevice(deviceMeasurements.device) ?: return deviceMeasurements
+        val calibration = calibrationProvider.calibrationForDevice(deviceMeasurements.device) ?: return deviceMeasurements
 
         val calibratedMeasurements =
             deviceMeasurements.measurements.mapValues { measurement -> calibrateMeasurement(measurement, calibration) }
