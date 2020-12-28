@@ -3,7 +3,6 @@ package com.noicesoftware.calibre.http
 import com.noicesoftware.calibre.calibration.Property
 
 data class CalibrationDataSet(
-    val device: String,
     val property: Property,
     val values: Array<Values>
 ) {
@@ -13,7 +12,6 @@ data class CalibrationDataSet(
 
         other as CalibrationDataSet
 
-        if (device != other.device) return false
         if (property != other.property) return false
         if (!values.contentEquals(other.values)) return false
 
@@ -21,8 +19,7 @@ data class CalibrationDataSet(
     }
 
     override fun hashCode(): Int {
-        var result = device.hashCode()
-        result = 31 * result + property.hashCode()
+        var result = property.hashCode()
         result = 31 * result + values.contentHashCode()
         return result
     }

@@ -13,8 +13,13 @@ class TestHttpClient(private val restTemplate: TestRestTemplate) {
 
     private fun host(): String = "http://localhost:$port"
 
-    fun postCalibrationData(calibrationDataSet: CalibrationDataSet) {
-        val response = restTemplate.postForEntity("${host()}/calibrate", calibrationDataSet, Void::class.java)
+    fun postCalibrationData(device: String, calibrationDataSet: CalibrationDataSet) {
+        val response = restTemplate.postForEntity("${host()}/calibration/${device}/add", calibrationDataSet, Void::class.java)
+        assertThat(response.statusCode).isEqualTo(HttpStatus.ACCEPTED)
+    }
+
+    fun clearCalibrationData(device: String) {
+        val response = restTemplate.postForEntity("${host()}/calibration/${device}/clear", null, Void::class.java)
         assertThat(response.statusCode).isEqualTo(HttpStatus.ACCEPTED)
     }
 }

@@ -24,12 +24,10 @@ class CalibreApplicationTests {
     lateinit var mqttClient: TestMqttClient
 
     @BeforeEach
-    fun setPort() {
+    fun beforeEachTest() {
         httpClient.port = port
-    }
+        httpClient.clearCalibrationData(device)
 
-    @BeforeEach
-    fun subscribe() {
         mqttClient.subscribeToOutput()
         mqttClient.clearOutputQueue()
     }
@@ -37,13 +35,33 @@ class CalibreApplicationTests {
     val device = "CalibreApplicationTests"
 
     /**
+     * No calibration data is provided. No changes made to property values.
+     */
+    @Test
+    fun no_calibration() {
+        mqttClient.publishToInput(
+            DeviceMeasurements(
+                device = device,
+                measurements = mapOf(
+                    "temperature" to BigDecimal(8),
+                    "uncalibrated" to BigDecimal(9)
+                )
+            )
+        )
+
+        val deviceMeasurements = mqttClient.popOutputQueue()
+        assertThat(deviceMeasurements.device).isEqualTo(device)
+        assertThat(deviceMeasurements.measurements["temperature"]).isEqualTo(BigDecimal(8))
+        assertThat(deviceMeasurements.measurements["uncalibrated"]).isEqualTo(BigDecimal(9))
+    }
+
+    /**
      * A single calibration point is provided. Calibrated values are a fixed offset from measured values.
      */
     @Test
     fun single_calibration_point() {
-        httpClient.postCalibrationData(
+        httpClient.postCalibrationData(device,
             CalibrationDataSet(
-                device = device,
                 property = "temperature",
                 values = arrayOf(Values(measured = BigDecimal(10), actual = BigDecimal(22.5)))
             )
@@ -52,12 +70,16 @@ class CalibreApplicationTests {
         mqttClient.publishToInput(
             DeviceMeasurements(
                 device = device,
-                measurements = mapOf("temperature" to BigDecimal(8))
+                measurements = mapOf(
+                    "temperature" to BigDecimal(8),
+                    "uncalibrated" to BigDecimal(9)
+                )
             )
         )
 
         val deviceMeasurements = mqttClient.popOutputQueue()
         assertThat(deviceMeasurements.device).isEqualTo(device)
         assertThat(deviceMeasurements.measurements["temperature"]).isEqualTo(BigDecimal(20.5))
+        assertThat(deviceMeasurements.measurements["uncalibrated"]).isEqualTo(BigDecimal(9))
     }
 }

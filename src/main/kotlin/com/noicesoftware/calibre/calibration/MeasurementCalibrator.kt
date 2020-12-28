@@ -3,6 +3,9 @@ package com.noicesoftware.calibre.calibration
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 
+/**
+ * Calibrates device measurements
+ */
 @Component
 class MeasurementCalibrator(
     val calibrationProvider: DeviceCalibrationProvider

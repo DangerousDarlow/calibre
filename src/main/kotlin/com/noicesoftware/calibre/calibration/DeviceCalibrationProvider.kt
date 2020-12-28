@@ -7,10 +7,14 @@ import org.springframework.stereotype.Component
 class DeviceCalibrationProvider {
     fun calibrationForDevice(device: String) = deviceCalibrations[device]
 
-    fun addCalibrationDataSet(dataSet: CalibrationDataSet) {
+    fun addCalibrationDataSet(device: String, dataSet: CalibrationDataSet) {
         deviceCalibrations
-            .getOrPut(dataSet.device) { DeviceCalibration() }
+            .getOrPut(device) { DeviceCalibration() }
             .addCalibrationDataSet(dataSet)
+    }
+
+    fun clear(device: String) {
+        deviceCalibrations.remove(device)
     }
 
     private val deviceCalibrations = mutableMapOf<String, DeviceCalibration>()

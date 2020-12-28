@@ -7,7 +7,14 @@ import com.noicesoftware.calibre.http.CalibrationDataSet
 import com.noicesoftware.calibre.http.Values
 import java.math.BigDecimal
 
+/**
+ * Calibration relationships for multiple properties for a single device
+ */
 class DeviceCalibration {
+
+    /**
+     * Relationship for a property as a given uncalibrated value
+     */
     fun forPropertyAtValue(property: Property, value: BigDecimal): IEquation {
         val equations = propertyEquations[property] ?: emptyList()
         return when (equations.size) {
