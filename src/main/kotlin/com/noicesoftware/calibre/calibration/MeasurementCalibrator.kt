@@ -8,19 +8,20 @@ class MeasurementCalibrator(
     val calibrationProvider: DeviceCalibrationProvider
 ) {
     fun calibrate(deviceMeasurements: DeviceMeasurements): DeviceMeasurements {
-        val calibration = calibrationProvider.calibrationForDevice(deviceMeasurements.device) ?: return deviceMeasurements
+        val deviceCalibration =
+            calibrationProvider.calibrationForDevice(deviceMeasurements.device) ?: return deviceMeasurements
 
         val calibratedMeasurements =
-            deviceMeasurements.measurements.mapValues { measurement -> calibrateMeasurement(measurement, calibration) }
+            deviceMeasurements.measurements.mapValues { measurement -> calibrateMeasurement(measurement, deviceCalibration) }
 
         return deviceMeasurements.copy(measurements = calibratedMeasurements)
     }
 
     private fun calibrateMeasurement(
         measurement: Map.Entry<Property, BigDecimal>,
-        calibration: DeviceCalibration
+        deviceCalibration: DeviceCalibration
     ): BigDecimal {
-        val equation = calibration.forPropertyAtValue(measurement.key, measurement.value) ?: return measurement.value
+        val equation = deviceCalibration.forPropertyAtValue(measurement.key, measurement.value)
         return equation.calculate(measurement.value)
     }
 }
