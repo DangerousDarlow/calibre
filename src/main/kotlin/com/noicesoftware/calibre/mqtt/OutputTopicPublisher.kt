@@ -16,6 +16,9 @@ class OutputTopicPublisher(
 ) {
     fun publish(deviceMeasurements: DeviceMeasurements) {
         val str = objectMapper.writeValueAsString(deviceMeasurements)
-        mqttClient.publish(mqttConfig.outputTopic, str.toByteArray(), 0, false)
+
+        // Don't use MqttClient.publish because it will block waiting for a
+        // response which will never come as this is executing in the read thread
+        mqttClient.getTopic(mqttConfig.outputTopic).publish(str.toByteArray(), 0, false)
     }
 }
