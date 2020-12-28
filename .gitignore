@@ -33,4 +33,6 @@ out/
 ### VS Code ###
 .vscode/
 
+### mosquitto ###
 /calibre-tcplocalhost1883/.lck
+/calibre-application-tests-tcplocalhost1883/.lck
